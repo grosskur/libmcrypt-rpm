@@ -1,0 +1,62 @@
+Name:		libmcrypt
+Version:	2.5.7
+Release:	1%{?dist}
+License:	LGPL
+Group:		System Environment/Libraries
+Summary:	Encryption algorithms library
+URL:		http://mcrypt.sourceforge.net/
+Source0:	http://download.sourceforge.net/mcrypt/libmcrypt-%{version}.tar.gz
+Patch0:		libmcrypt-2.5.7-nolibltdl.patch
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildRequires:	libtool-ltdl-devel
+
+%description
+Libmcrypt is a thread-safe library providing a uniform interface
+to access several block and stream encryption algorithms.
+
+%package devel
+Group:		Development/Libraries
+Summary:	Development libraries and headers for libmcrypt
+Requires:	%{name} = %{version}-%{release}
+
+%description devel
+Development libraries and headers for use in building applications that
+use libmcrypt.
+
+%prep
+%setup -q
+%patch0 -p1
+
+%build
+%configure --enable-static=yes
+make %{?_smp_mflags}
+
+%install
+rm -rf $RPM_BUILD_ROOT
+make DESTDIR=$RPM_BUILD_ROOT install
+find $RPM_BUILD_ROOT -type f -name '*.la' -exec rm -f {} \;
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%post -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
+
+%files
+%defattr(-,root,root,-)
+%doc AUTHORS COPYING.LIB ChangeLog KNOWN-BUGS README NEWS THANKS TODO
+%{_libdir}/*.so.*
+%{_datadir}/aclocal/libmcrypt.m4
+%{_mandir}/man3/*
+
+%files devel
+%defattr(-,root,root,-)
+%doc doc/README.key doc/README.xtea doc/example.c
+%{_bindir}/libmcrypt-config
+%{_includedir}/mcrypt.h
+%{_libdir}/*.a
+%{_libdir}/*.so
+
+%changelog
+* Thu Sep 22 2005 Tom "spot" Callaway <tcallawa@redhat.com> 2.5.7-1
+- initial package for Fedora Extras

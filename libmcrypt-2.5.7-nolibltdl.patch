@@ -1,0 +1,33 @@
+--- libmcrypt-2.5.7/configure.BAD	2005-09-22 17:04:51.000000000 -0500
++++ libmcrypt-2.5.7/configure	2005-09-22 17:05:19.000000000 -0500
+@@ -430,7 +430,7 @@
+ PACKAGE_BUGREPORT=
+ 
+ ac_unique_file="lib/mcrypt.c"
+-ac_subdirs_all="$ac_subdirs_all libltdl"
++ac_subdirs_all="$ac_subdirs_all"
+ # Factoring default headers for most tests.
+ ac_includes_default="\
+ #include <stdio.h>
+@@ -3356,7 +3356,7 @@
+ 
+ 
+ 
+-subdirs="$subdirs libltdl"
++subdirs="$subdirs"
+ 
+  # Check whether --enable-static or --disable-static was given.
+ if test "${enable_static+set}" = set; then
+--- libmcrypt-2.5.7/Makefile.in.BAD	2005-09-22 17:06:35.000000000 -0500
++++ libmcrypt-2.5.7/Makefile.in	2005-09-22 17:06:47.000000000 -0500
+@@ -148,8 +148,8 @@
+ 
+ INCLUDES = $(INCLTDL)
+ EXTRA_DIST = KNOWN-BUGS THANKS NEWS libmcrypt.spec.in libmcrypt.spec COPYING.LIB
+-DIST_SUBDIRS = libltdl modules lib src doc
+-SUBDIRS = $(LIBLTDL_DIR) modules lib src doc
++DIST_SUBDIRS = modules lib src doc
++SUBDIRS = modules lib src doc
+ subdir = .
+ ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
+ mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
