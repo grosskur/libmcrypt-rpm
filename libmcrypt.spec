@@ -1,6 +1,6 @@
 Name:		libmcrypt
 Version:	2.5.7
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	LGPL
 Group:		System Environment/Libraries
 Summary:	Encryption algorithms library
@@ -58,6 +58,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
+* Tue Feb 28 2006 Tom "spot" Callaway <tcallawa@redhat.com> 2.5.7-3
+- bump for FC-5
+
 * Wed Sep 28 2005 Tom "spot" Callaway <tcallawa@redhat.com> 2.5.7-2
 - fix for FC-3
 
