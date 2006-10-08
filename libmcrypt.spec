@@ -1,12 +1,13 @@
 Name:		libmcrypt
 Version:	2.5.7
-Release:	4%{?dist}
+Release:	5%{?dist}
 License:	LGPL
 Group:		System Environment/Libraries
 Summary:	Encryption algorithms library
 URL:		http://mcrypt.sourceforge.net/
 Source0:	http://download.sourceforge.net/mcrypt/libmcrypt-%{version}.tar.gz
 Patch0:		libmcrypt-2.5.7-nolibltdl.patch
+Patch1:		libmcrypt-2.5.7-aclocal_underquoted.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:	libtool-ltdl-devel
 
@@ -26,6 +27,7 @@ use libmcrypt.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %configure --enable-static=yes
@@ -46,7 +48,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %doc AUTHORS COPYING.LIB ChangeLog KNOWN-BUGS README NEWS THANKS TODO
 %{_libdir}/*.so.*
-%{_datadir}/aclocal/libmcrypt.m4
 %{_mandir}/man3/*
 
 %files devel
@@ -56,8 +57,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/mcrypt.h
 %{_libdir}/*.a
 %{_libdir}/*.so
+%{_datadir}/aclocal/libmcrypt.m4
 
 %changelog
+* Sun Oct  8 2006 Ed Hill <ed@eh3.com> 2.5.7-5
+- bz 209913 : libmcrypt.m4 in -devel and properly quote it
+
 * Tue Sep 12 2006 Tom "spot" Callaway <tcallawa@redhat.com> 2.5.7-4
 - bump for FC-6
 
