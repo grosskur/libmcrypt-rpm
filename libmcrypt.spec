@@ -1,7 +1,7 @@
 Name:		libmcrypt
 Version:	2.5.8
-Release:	1%{?dist}
-License:	LGPL
+Release:	2%{?dist}
+License:	LGPLv2+
 Group:		System Environment/Libraries
 Summary:	Encryption algorithms library
 URL:		http://mcrypt.sourceforge.net/
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/aclocal/libmcrypt.m4
 
 %changelog
+* Thu Aug 23 2007 Tom "spot" Callaway <tcallawa@redhat.com> 2.5.8-2
+- fix license tag (v2+), rebuild for ppc32
+
 * Thu Jul 19 2007 Tom "spot" Callaway <tcallawa@redhat.com> 2.5.8-1
 - bump to 2.5.8
 - proper quoting fixed upstream, patch1 obsolete
