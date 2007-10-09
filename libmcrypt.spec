@@ -1,6 +1,6 @@
 Name:		libmcrypt
 Version:	2.5.8
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	LGPLv2+
 Group:		System Environment/Libraries
 Summary:	Encryption algorithms library
@@ -28,7 +28,7 @@ use libmcrypt.
 %patch0 -p1
 
 %build
-%configure --enable-static=yes
+%configure
 make %{?_smp_mflags}
 
 %install
@@ -54,11 +54,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/libmcrypt-config
 %{_includedir}/mutils/
 %{_includedir}/mcrypt.h
-%{_libdir}/*.a
 %{_libdir}/*.so
 %{_datadir}/aclocal/libmcrypt.m4
 
 %changelog
+* Tue Oct  9 2007 Tom "spot" Callaway <tcallawa@redhat.com> 2.5.8-3
+- get rid of the static lib, causes failures (bz 278671)
+
 * Thu Aug 23 2007 Tom "spot" Callaway <tcallawa@redhat.com> 2.5.8-2
 - fix license tag (v2+), rebuild for ppc32
 
