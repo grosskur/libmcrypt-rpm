@@ -1,6 +1,6 @@
 Name:		libmcrypt
 Version:	2.5.8
-Release:	3%{?dist}
+Release:	4%{?dist}
 License:	LGPLv2+
 Group:		System Environment/Libraries
 Summary:	Encryption algorithms library
@@ -36,6 +36,9 @@ rm -rf $RPM_BUILD_ROOT
 make DESTDIR=$RPM_BUILD_ROOT install
 find $RPM_BUILD_ROOT -type f -name '*.la' -exec rm -f {} \;
 
+# Multilib fix
+touch -r NEWS $RPM_BUILD_ROOT%{_bindir}/libmcrypt-config
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -58,6 +61,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/aclocal/libmcrypt.m4
 
 %changelog
+* Mon Oct 29 2007 Tom "spot" Callaway <tcallawa@redhat.com> 2.5.8-4
+- multilib fix (bz 342221)
+
 * Tue Oct  9 2007 Tom "spot" Callaway <tcallawa@redhat.com> 2.5.8-3
 - get rid of the static lib, causes failures (bz 278671)
 
