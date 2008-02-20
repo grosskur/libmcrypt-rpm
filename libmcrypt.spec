@@ -1,6 +1,6 @@
 Name:		libmcrypt
 Version:	2.5.8
-Release:	4%{?dist}
+Release:	5%{?dist}
 License:	LGPLv2+
 Group:		System Environment/Libraries
 Summary:	Encryption algorithms library
@@ -61,6 +61,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/aclocal/libmcrypt.m4
 
 %changelog
+* Tue Feb 19 2008 Fedora Release Engineering <rel-eng@fedoraproject.org> - 2.5.8-5
+- Autorebuild for GCC 4.3
+
 * Mon Oct 29 2007 Tom "spot" Callaway <tcallawa@redhat.com> 2.5.8-4
 - multilib fix (bz 342221)
 
