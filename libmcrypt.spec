@@ -1,12 +1,18 @@
 Name:		libmcrypt
 Version:	2.5.8
-Release:	5%{?dist}
+Release:	6%{?dist}
 License:	LGPLv2+
 Group:		System Environment/Libraries
 Summary:	Encryption algorithms library
 URL:		http://mcrypt.sourceforge.net/
 Source0:	http://download.sourceforge.net/mcrypt/libmcrypt-%{version}.tar.gz
 Patch0:		libmcrypt-2.5.8-nolibltdl.patch
+# Upstream:
+# http://sourceforge.net/tracker/index.php?func=detail&aid=1872801&group_id=87941&atid=584895
+Patch1:		libmcrypt-2.5.8-uninitialized.patch
+# Upstream:
+# http://sourceforge.net/tracker/index.php?func=detail&aid=1872799&group_id=87941&atid=584895
+Patch2:		libmcrypt-2.5.8-prototypes.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:	libtool-ltdl-devel
 
@@ -26,6 +32,8 @@ use libmcrypt.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1 -b .uninitialized
+%patch2 -p1 -b .prototypes
 
 %build
 %configure
@@ -61,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/aclocal/libmcrypt.m4
 
 %changelog
+* Tue Aug 26 2008 Tom "spot" Callaway <tcallawa@redhat.com> - 2.5.8-6
+- apply minor cleanups from upstream
+
 * Tue Feb 19 2008 Fedora Release Engineering <rel-eng@fedoraproject.org> - 2.5.8-5
 - Autorebuild for GCC 4.3
 
