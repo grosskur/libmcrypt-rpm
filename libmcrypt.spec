@@ -1,6 +1,6 @@
 Name:		libmcrypt
 Version:	2.5.8
-Release:	6%{?dist}
+Release:	7%{?dist}
 License:	LGPLv2+
 Group:		System Environment/Libraries
 Summary:	Encryption algorithms library
@@ -45,6 +45,7 @@ make DESTDIR=$RPM_BUILD_ROOT install
 find $RPM_BUILD_ROOT -type f -name '*.la' -exec rm -f {} \;
 
 # Multilib fix
+sed -i 's|-L%{_libdir}||g' $RPM_BUILD_ROOT%{_bindir}/libmcrypt-config
 touch -r NEWS $RPM_BUILD_ROOT%{_bindir}/libmcrypt-config
 
 %clean
@@ -69,6 +70,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/aclocal/libmcrypt.m4
 
 %changelog
+* Mon Jan  5 2009 Tom "spot" Callaway <tcallawa@redhat.com> - 2.5.8-7
+- fix multilib conflict (bz 478879)
+
 * Tue Aug 26 2008 Tom "spot" Callaway <tcallawa@redhat.com> - 2.5.8-6
 - apply minor cleanups from upstream
 
