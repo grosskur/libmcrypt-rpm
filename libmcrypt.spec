@@ -5,7 +5,7 @@ License:	LGPLv2+
 Group:		System Environment/Libraries
 Summary:	Encryption algorithms library
 URL:		http://mcrypt.sourceforge.net/
-Source0:	http://download.sourceforge.net/mcrypt/libmcrypt-%{version}.tar.gz
+Source0:	http://downloads.sourceforge.net/mcrypt/libmcrypt-%{version}.tar.gz
 Patch0:		libmcrypt-2.5.8-nolibltdl.patch
 # Upstream:
 # http://sourceforge.net/tracker/index.php?func=detail&aid=1872801&group_id=87941&atid=584895
