@@ -1,6 +1,22 @@
-Name:		libmcrypt
+%global p_vendor         hhvm
+%define _name            libmcrypt
+
+%if 0%{?p_vendor:1}
+  %global _orig_prefix   %{_prefix}
+  %global name_prefix    %{p_vendor}-
+
+  # Use the alternate locations for things.
+  %define _lib            lib 
+  %global _real_initrddir %{_initrddir}
+  %global _sysconfdir     %{_sysconfdir}/hhvm
+  %define _prefix         /opt/hhvm
+  %define _libdir         %{_prefix}/lib
+  %define _mandir         %{_datadir}/man
+%endif
+
+Name:		%{?name_prefix}%{_name}
 Version:	2.5.8
-Release:	14%{?dist}
+Release:	14.hhvm%{?dist}
 License:	LGPLv2+
 Group:		System Environment/Libraries
 Summary:	Encryption algorithms library
@@ -15,6 +31,8 @@ Patch1:		libmcrypt-2.5.8-uninitialized.patch
 Patch2:		libmcrypt-2.5.8-prototypes.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:	libtool-ltdl-devel
+# Don't provide un-namespaced libraries inside rpm database
+AutoReqProv: 0
 
 %description
 Libmcrypt is a thread-safe library providing a uniform interface
@@ -24,13 +42,15 @@ to access several block and stream encryption algorithms.
 Group:		Development/Libraries
 Summary:	Development libraries and headers for libmcrypt
 Requires:	%{name} = %{version}-%{release}
+# Don't provide un-namespaced libraries inside rpm database
+AutoReqProv: 0
 
 %description devel
 Development libraries and headers for use in building applications that
 use libmcrypt.
 
 %prep
-%setup -q
+%setup -q -n %{_name}-%{version}
 %patch0 -p1
 %patch1 -p1 -b .uninitialized
 %patch2 -p1 -b .prototypes
